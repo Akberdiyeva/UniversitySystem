@@ -1,31 +1,52 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class University {
 
-    private String group;
-    private int courseyear;
+    private String name;
+    private List<Course> courses = new ArrayList<>();
+    private List<Professor> professors = new ArrayList<>();
 
-    public University(String group, int courseyear) {
-        this.group = group;
-        this.courseyear = courseyear;
+    public University(String name) {
+        this.name = name;
     }
 
-    public String getGroup() {
-        return group;
+    public void addProfessor(Professor professor) {
+        professors.add(professor);
     }
 
-    public int getCourseyear() {
-        return courseyear;
+    public void addCourse(Course course) {
+        courses.add(course);
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public Course findCourseByName(String name) {
+        for (Course c : courses) {
+            if (c.getName().equalsIgnoreCase(name)) {
+                return c;
+            }
+        }
+        return null;
     }
 
-    public void setCourseyear(int courseyear) {
-        this.courseyear = courseyear;
+    public List<Course> filterCoursesByCredits(int minCredits) {
+        List<Course> result = new ArrayList<>();
+        for (Course c : courses) {
+            if (c.getCredits() >= minCredits) {
+                result.add(c);
+            }
+        }
+        return result;
+    }
+
+    public void sortCoursesByName() {
+        courses.sort(Comparator.comparing(Course::getName));
     }
 
     @Override
     public String toString() {
-        return "University {group = '" + group + "', course year = " + courseyear + "}";
+        return "University {name='" + name +
+                "', courses=" + courses.size() +
+                ", professors=" + professors.size() + "}";
     }
 }
