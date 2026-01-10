@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ProfessorDAO {
 
-    // CREATE
     public void addProfessor(Professor professor) {
         String sql = "INSERT INTO professors(name, lastname) VALUES (?, ?)";
 
@@ -20,7 +19,6 @@ public class ProfessorDAO {
         }
     }
 
-    // READ
     public List<Professor> getAllProfessors() {
         List<Professor> professors = new ArrayList<>();
         String sql = "SELECT * FROM professors";
@@ -45,7 +43,6 @@ public class ProfessorDAO {
         return professors;
     }
 
-    // UPDATE
     public void updateProfessor(int id, String newName) {
         String sql = "UPDATE professors SET name = ? WHERE id = ?";
 
@@ -61,7 +58,6 @@ public class ProfessorDAO {
         }
     }
 
-    // DELETE
     public void deleteProfessor(int id) {
         String sql = "DELETE FROM professors WHERE id = ?";
 

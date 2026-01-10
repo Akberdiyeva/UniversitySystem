@@ -4,7 +4,6 @@ import java.util.List;
 
 public class CourseDAO {
 
-    // CREATE
     public void addCourse(Course course) {
         String sql = "INSERT INTO courses(name, credits, professor_id) VALUES (?, ?, ?)";
 
@@ -21,7 +20,6 @@ public class CourseDAO {
         }
     }
 
-    // READ
     public List<Course> getAllCourses() {
         List<Course> courses = new ArrayList<>();
 
@@ -59,7 +57,6 @@ public class CourseDAO {
         return courses;
     }
 
-    // UPDATE
     public void updateCourseCredits(int id, int credits) {
         String sql = "UPDATE courses SET credits = ? WHERE id = ?";
 
@@ -75,7 +72,6 @@ public class CourseDAO {
         }
     }
 
-    // DELETE
     public void deleteCourse(int id) {
         String sql = "DELETE FROM courses WHERE id = ?";
 
