@@ -42,11 +42,4 @@ public class University {
     public void sortCoursesByName() {
         courses.sort(Comparator.comparing(Course::getName));
     }
-
-    @Override
-    public String toString() {
-        return "University {name='" + name +
-                "', courses=" + courses.size() +
-                ", professors=" + professors.size() + "}";
-    }
 }

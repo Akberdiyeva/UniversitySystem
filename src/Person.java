@@ -1,5 +1,4 @@
-public abstract class Person {
-
+public class Person {
     protected String name;
     protected String lastname;
 
@@ -8,13 +7,15 @@ public abstract class Person {
         this.lastname = lastname;
     }
 
-    public abstract String getRole();
-
     public String getName() {
         return name;
     }
 
     public String getLastname() {
         return lastname;
+    }
+
+    public String getRole() {
+        return "Person";
     }
 }
