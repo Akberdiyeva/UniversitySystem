@@ -1,3 +1,5 @@
+package com.university;
+
 public class Professor extends Person {
 
     private int id;

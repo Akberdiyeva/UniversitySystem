@@ -1,3 +1,5 @@
+package com.university;
+
 public class Course {
 
     private int id;

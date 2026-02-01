@@ -1,18 +1,19 @@
+package com.university;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CourseDAO {
+public class ProfessorDAO {
 
-    public void addCourse(Course course) {
-        String sql = "INSERT INTO courses(name, credits, professor_id) VALUES (?, ?, ?)";
+    public void addProfessor(Professor professor) {
+        String sql = "INSERT INTO professors(name, lastname) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, course.getName());
-            ps.setInt(2, course.getCredits());
-            ps.setInt(3, course.getProfessor().getId());
+            ps.setString(1, professor.name);
+            ps.setString(2, professor.lastname);
             ps.executeUpdate();
 
         } catch (Exception e) {
@@ -20,33 +21,20 @@ public class CourseDAO {
         }
     }
 
-    public List<Course> getAllCourses() {
-        List<Course> courses = new ArrayList<>();
-
-        String sql = """
-            SELECT c.id, c.name, c.credits,
-                   p.id as pid, p.name as pname, p.lastname
-            FROM courses c
-            JOIN professors p ON c.professor_id = p.id
-            """;
+    public List<Professor> getAllProfessors() {
+        List<Professor> professors = new ArrayList<>();
+        String sql = "SELECT * FROM professors";
 
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
-                Professor professor = new Professor(
-                        rs.getInt("pid"),
-                        rs.getString("pname"),
-                        rs.getString("lastname")
-                );
-
-                courses.add(
-                        new Course(
+                professors.add(
+                        new Professor(
                                 rs.getInt("id"),
                                 rs.getString("name"),
-                                rs.getInt("credits"),
-                                professor
+                                rs.getString("lastname")
                         )
                 );
             }
@@ -54,16 +42,16 @@ public class CourseDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return courses;
+        return professors;
     }
 
-    public void updateCourseCredits(int id, int credits) {
-        String sql = "UPDATE courses SET credits = ? WHERE id = ?";
+    public void updateProfessor(int id, String newName) {
+        String sql = "UPDATE professors SET name = ? WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, credits);
+            ps.setString(1, newName);
             ps.setInt(2, id);
             ps.executeUpdate();
 
@@ -72,8 +60,8 @@ public class CourseDAO {
         }
     }
 
-    public void deleteCourse(int id) {
-        String sql = "DELETE FROM courses WHERE id = ?";
+    public void deleteProfessor(int id) {
+        String sql = "DELETE FROM professors WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
